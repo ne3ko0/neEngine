@@ -58,7 +58,7 @@
       <Filter>Archivos de encabezado\Math</Filter>
     </ClInclude>
     <ClInclude Include="include\neUtilities_MathMatrix4.h">
-      <Filter>Archivos de código fuente\Math</Filter>
+      <Filter>Archivos de encabezado\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

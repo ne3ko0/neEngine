@@ -14,14 +14,17 @@ mathemathical constants
 #pragma once
 
 #include "neUtilities_Prerequisites.h"
-#include "neUtilities_MathRadians.h"
-#include "neUtilities_MathDegrees.h"
+//#include "neUtilities_MathRadians.h"
+//#include "neUtilities_MathDegrees.h"
 
 /*!
-\namespace NEEngineSDK
+\namespace neEngineSDK
 \brief Declares every function (math, types, objects) for use in the engine
 */
 namespace neEngineSDK {
+  class CRadian;
+  class CDegree;
+
   //! Absolute
   template<class T> FORCE_INLINE T Abs(const T prm_Value) {
     return (prm_Value >= (T)0) ? prm_Value : -prm_Value;
@@ -46,92 +49,92 @@ namespace neEngineSDK {
     static const float		PI;
     /*!
     \var INVERSEPI
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const float		INVERSEPI;
     /*!
     \var PIBYTWO
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const float		PIBYTWO;
     /*!
     \var TWOPI
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const float		TWOPI;
     /*!
     \var EULER
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const float		EULER;
     /*!
     \var MIN_UINT8
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const uint8		MIN_UINT8;
     /*!
     \var MIN_UINT16
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const uint16		MIN_UINT16;
     /*!
     \var UINT32
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const uint32		MIN_UINT32;
     /*!
     \var MIN_INT8
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const int8		MIN_INT8;
     /*!
     \var MIN_INT16
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const int16		MIN_INT16;
     /*!
     \var MIN_INT32
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const int32		MIN_INT32;
     /*!
     \var MIN_FLOAT
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const float		MIN_FLOAT;
     /*!
     \var MAX_UINT8
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const uint8		MAX_UINT8;
     /*!
     \var UINT16
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const uint16		MAX_UINT16;
     /*!
     \var UINT32
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const uint32		MAX_UINT32;
     /*!
     \var MAX_INT8
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const int8		MAX_INT8;
     /*!
     \var MAX_INT16
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const int16		MAX_INT16;
     /*!
     \var MAX_INT32
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const int32		MAX_INT32;
     /*!
     \var MAX_FLOAT
-    \brief Pi constant = 3.141592535897
+    \brief
     */
     static const float		MAX_FLOAT;
     /*!
@@ -268,14 +271,12 @@ namespace neEngineSDK {
     }
     //! Square root degrees
     /*!*/
-    static FORCE_INLINE CDegree Sqrt(const CDegree& prm_Value) {
-      return CDegree(Sqrt(prm_Value.ValueDegrees()));
-    }
+    
+    static CDegree Sqrt(const CDegree& prm_Value);
+  
     //! Square root radians
     /*!*/
-    static FORCE_INLINE CRadian Sqrt(const CRadian& prm_Value) {
-      return CRadian(Sqrt(prm_Value.ValueRadians()));
-    }
+    static CRadian Sqrt(const CRadian& prm_Value);
 
     //! Inverse Square root
     /*!*/
@@ -331,32 +332,26 @@ namespace neEngineSDK {
     \fn m_RadianSine
     \brief
     */
-    static FORCE_INLINE float	RadianSine(const CRadian& prm_Radian) {
-      return (float)std::sin(prm_Radian.ValueRadians());
-    }
+    static float RadianSine(const CRadian& prm_Radian);
 
     /*!
     \fn m_RadianCosine
     \brief
     */
-    static FORCE_INLINE float	RadianCosine(const CRadian& prm_Radian) {
-      return (float)std::cos(prm_Radian.ValueRadians());
-    }
+    static float RadianCosine(const CRadian& prm_Radian);
 
     /*!
     \fn m_RadianTangent
     \brief
     */
-    static FORCE_INLINE float	RadianTangent(const CRadian& prm_Radian) {
-      return (float)std::tan(prm_Radian.ValueRadians());
-    }
+    static float RadianTangent(const CRadian& prm_Radian);
 
     //! Radian arcs
     /*!
     \fn m_Acos
     \brief
     */
-    static CRadian	Acos(float prm_Value);
+    static CRadian Acos(float prm_Value);
 
     /*!
     \fn m_Asin
@@ -368,13 +363,13 @@ namespace neEngineSDK {
     \fn m_Atan
     \brief
     */
-    static CRadian	Atan(float prm_Value) { return CRadian(std::atan(prm_Value)); }
+    static CRadian	Atan(float prm_Value);
 
     /*!
     \fn m_Atan2
     \brief
     */
-    static CRadian	Atan2(float prm_Y, float prm_X) { return CRadian(std::atan2(prm_Y, prm_X)); }
+    static CRadian	Atan2(float prm_Y, float prm_X);
 
     template<class T, class U>
     /*!

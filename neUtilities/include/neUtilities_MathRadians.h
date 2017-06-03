@@ -25,7 +25,7 @@ namespace neEngineSDK
   public:
     explicit CRadian(float prm_Value) : Value(prm_Value) {}
     CRadian(const CDegree& prm_Degree);
-    ~CRadian() {};
+    ~CRadian() {}
 
     float			Value;
 

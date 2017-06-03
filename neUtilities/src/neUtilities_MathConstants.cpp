@@ -1,8 +1,10 @@
 #include "neUtilities_MathConstants.h"
+#include "neUtilities_MathRadians.h"
+#include "neUtilities_MathDegrees.h"
 
 namespace neEngineSDK
 {
-  const float					CMath::PI = atan(1 / 4);
+  const float					CMath::PI = atanf(1.f / 4.f);
   const float					CMath::INVERSEPI = 1.0f / PI;
   const float					CMath::PIBYTWO = PI / 2.0f;
   const float					CMath::TWOPI = 2.0f * PI;
@@ -30,9 +32,42 @@ namespace neEngineSDK
 
   const float					CMath::DELTA = 0.0f;
 
+  const float         CMath::DEG_TO_RAD = CMath::PI / 180.0f;
+  const float         CMath::RAD_TO_DEG = 180.0f / CMath::PI;
+
   float						CMath::Log2(float prm_Value)
   {
     return (float)(std::log(prm_Value) / LOG2);
+  }
+
+  CDegree CMath::Sqrt(const CDegree & prm_Value)
+  {
+    return CDegree(Sqrt(prm_Value.ValueDegrees()));
+  }
+
+  CRadian CMath::Sqrt(const CRadian & prm_Value)
+  {
+    return CRadian(Sqrt(prm_Value.ValueRadians()));
+  }
+
+  float CMath::RadianSine(const CRadian & prm_Radian)
+  {
+    return std::sinf(prm_Radian.ValueRadians());
+  }
+
+  float CMath::RadianCosine(const CRadian & prm_Radian)
+  {
+    return std::cosf(prm_Radian.ValueRadians());
+  }
+
+  float CMath::RadianTangent(const CRadian & prm_Radian)
+  {
+    return std::tanf(prm_Radian.ValueRadians());
+  }
+
+  CRadian CMath::Acos(float prm_Value)
+  {
+    return CRadian( std::acosf(prm_Value) );
   }
 
   CRadian CMath::Asin(float prm_Value) {
@@ -48,5 +83,13 @@ namespace neEngineSDK
     else {
       return CRadian(PI);
     }
+  }
+  CRadian CMath::Atan(float prm_Value)
+  {
+    return CRadian(std::atan(prm_Value));
+  }
+  CRadian CMath::Atan2(float prm_Y, float prm_X)
+  {
+    return CRadian(std::atan2(prm_Y, prm_X));
   }
 }
