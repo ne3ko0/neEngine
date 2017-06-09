@@ -23,13 +23,13 @@ namespace neEngineSDK
   class NE_UTILITIES_EXPORT CRadian
   {
   public:
-    explicit CRadian(float prm_Value) : Value(prm_Value) {}
+    explicit CRadian(float prm_Value) : m_Value(prm_Value) {}
     CRadian(const CDegree& prm_Degree);
     ~CRadian() {}
 
-    float			Value;
+    float			m_Value;
 
-    inline float	ValueRadians() const { return Value; }
+    inline float	ValueRadians() const { return m_Value; }
     inline float	ValueDegrees() const;
   };
 }

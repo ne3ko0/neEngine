@@ -1,16 +1,16 @@
-#include "neUtilities_MathDegrees.h"
-#include "neUtilities_MathRadians.h"
-#include "neUtilities_MathConstants.h"
+#include "neMathDegrees.h"
+#include "neMathRadians.h"
+#include "neMathConstants.h"
 
 namespace neEngineSDK
 {
   CDegree::CDegree(const CRadian& prm_Radian)
   {
-    Value = prm_Radian.ValueDegrees();
+    m_Value = prm_Radian.ValueDegrees();
   }
 
   float CDegree::ValueRadians() const
   {
-    return Value * CMath::PI / 180.0f;
+    return m_Value * CMath::PI / 180.0f;
   }
 }

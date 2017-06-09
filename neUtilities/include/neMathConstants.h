@@ -4,7 +4,7 @@
 \brief Declares the constants for a math class
 \date 25-05-17
 
-\details Declares a Match class, which exists inside NEEngineSDK namespace, and contains
+\details Declares a Match class, which exists inside neEngineSDK namespace, and contains
 mathemathical constants
 
 \version 1.0
@@ -14,8 +14,7 @@ mathemathical constants
 #pragma once
 
 #include "neUtilities_Prerequisites.h"
-//#include "neUtilities_MathRadians.h"
-//#include "neUtilities_MathDegrees.h"
+
 
 /*!
 \namespace neEngineSDK
@@ -25,14 +24,14 @@ namespace neEngineSDK {
   class CRadian;
   class CDegree;
 
-  //! Absolute
-  template<class T> FORCE_INLINE T Abs(const T prm_Value) {
-    return (prm_Value >= (T)0) ? prm_Value : -prm_Value;
-  }
+  ////! Absolute
+  //template<class T> FORCE_INLINE T Abs(const T prm_Value) {
+  //  return (prm_Value >= (T)0) ? prm_Value : -prm_Value;
+  //}
 
-  template <> FORCE_INLINE float Abs<float>(const float prm_Value) {
-    return (float)std::fabs(prm_Value);
-  }
+  //template <> FORCE_INLINE float Abs<float>(const float prm_Value) {
+  //  return (float)std::fabs(prm_Value);
+  //}
 
   /*!
   \class CMath

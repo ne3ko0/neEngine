@@ -14,7 +14,7 @@
 #pragma once
 #include "neUtilities_Prerequisites.h"
 
-#include <neUtilities_MathConstants.h>
+#include <neMathConstants.h>
 /*!
 \class CVector2
 */

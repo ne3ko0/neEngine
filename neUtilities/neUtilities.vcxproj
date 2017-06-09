@@ -151,21 +151,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\neMathVector2i.h" />
     <ClInclude Include="include\neString.h" />
     <ClInclude Include="include\neTimer.h" />
-    <ClInclude Include="include\neUtilities_MathConstants.h" />
-    <ClInclude Include="include\neUtilities_MathDegrees.h" />
-    <ClInclude Include="include\neUtilities_MathMatrix3.h" />
-    <ClInclude Include="include\neUtilities_MathMatrix4.h" />
-    <ClInclude Include="include\neUtilities_MathRadians.h" />
-    <ClInclude Include="include\neUtilities_MathVector3.h" />
-    <ClInclude Include="include\neUtilities_MathVector4.h" />
+    <ClInclude Include="include\neMathConstants.h" />
+    <ClInclude Include="include\neMathDegrees.h" />
+    <ClInclude Include="include\neMathMatrix3.h" />
+    <ClInclude Include="include\neMathMatrix4.h" />
+    <ClInclude Include="include\neMathRadians.h" />
+    <ClInclude Include="include\neMathVector3.h" />
+    <ClInclude Include="include\neMathVector4.h" />
     <ClInclude Include="include\neUtilities_Prerequisites.h" />
     <ClInclude Include="include\neUtilities_PlatformTypes.h" />
     <ClInclude Include="include\neUtilities_PlatformDefines.h" />
-    <ClInclude Include="include\neUtilities_Vector2.h" />
+    <ClInclude Include="include\neMathVector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\neMathVector2i.cpp" />
     <ClCompile Include="src\neString.cpp" />
     <ClCompile Include="src\neUtilities_MathConstants.cpp" />
     <ClCompile Include="src\neUtilities_MathDegrees.cpp" />
