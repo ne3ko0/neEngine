@@ -44,40 +44,37 @@ using namespace neEngineSDK;
 
     CMatrix3 Result;
 
+    Result.fMatrix[0][0] = (fMatrix[0][0] * fMa.fMatrix[0][0]) +
+      (fMatrix[0][1] + fMa.fMatrix[1][0]) +
+      (fMatrix[0][2] * fMa.fMatrix[2][0]);
+    Result.fMatrix[0][1] = (fMatrix[0][0] * fMa.fMatrix[0][1]) +
+      (fMatrix[0][1] * fMa.fMatrix[1][1]) +
+      (fMatrix[0][2] * fMa.fMatrix[2][1]);
+    Result.fMatrix[0][2] = (fMatrix[0][0] * fMa.fMatrix[0][2]) +
+      (fMatrix[0][1] * fMa.fMatrix[1][2]) +
+      (fMatrix[0][2] * fMa.fMatrix[2][2]);
 
 
-    Result.fMatrix[0][0] = (fMatrix[0][0] * fMa.fMatrix[0][0]) + 
-                           (fMatrix[0][1] + fMa.fMatrix[1][0]) + 
-                           (fMatrix[0][2] * fMa.fMatrix[2][0]);
-    Result.fMatrix[0][1] = (fMatrix[0][0] * fMa.fMatrix[0][1]) + 
-                           (fMatrix[0][1] * fMa.fMatrix[1][1]) + 
-                           (fMatrix[0][2] * fMa.fMatrix[2][1]);
-    Result.fMatrix[0][2] = (fMatrix[0][0] * fMa.fMatrix[0][2]) + 
-                           (fMatrix[0][1] * fMa.fMatrix[1][2]) + 
-                           (fMatrix[0][2] * fMa.fMatrix[2][2]);
+    Result.fMatrix[1][0] = (fMatrix[1][0] * fMa.fMatrix[0][0]) +
+      (fMatrix[1][1] + fMa.fMatrix[1][0]) +
+      (fMatrix[1][2] * fMa.fMatrix[2][0]);
+    Result.fMatrix[1][1] = (fMatrix[1][0] * fMa.fMatrix[0][1]) +
+      (fMatrix[1][1] * fMa.fMatrix[1][1]) +
+      (fMatrix[1][2] * fMa.fMatrix[2][1]);
+    Result.fMatrix[1][2] = (fMatrix[1][0] * fMa.fMatrix[0][2]) +
+      (fMatrix[1][1] * fMa.fMatrix[1][2]) +
+      (fMatrix[1][2] * fMa.fMatrix[2][2]);
 
 
-    Result.fMatrix[1][0] = (fMatrix[1][0] * fMa.fMatrix[0][0]) + 
-                           (fMatrix[1][1] + fMa.fMatrix[1][0]) + 
-                           (fMatrix[1][2] * fMa.fMatrix[2][0]);
-    Result.fMatrix[1][1] = (fMatrix[1][0] * fMa.fMatrix[0][1]) + 
-                           (fMatrix[1][1] * fMa.fMatrix[1][1]) + 
-                           (fMatrix[1][2] * fMa.fMatrix[2][1]);
-    Result.fMatrix[1][2] = (fMatrix[1][0] * fMa.fMatrix[0][2]) + 
-                           (fMatrix[1][1] * fMa.fMatrix[1][2]) + 
-                           (fMatrix[1][2] * fMa.fMatrix[2][2]);
-
-
-    Result.fMatrix[2][0] = (fMatrix[2][0] * fMa.fMatrix[0][0]) + 
-                           (fMatrix[2][1] + fMa.fMatrix[1][0]) + 
-                           (fMatrix[2][2] * fMa.fMatrix[2][0]);
-    Result.fMatrix[2][1] = (fMatrix[2][0] * fMa.fMatrix[0][1]) +  
-                           (fMatrix[2][1] * fMa.fMatrix[1][1]) + 
-                           (fMatrix[2][2] * fMa.fMatrix[2][1]);
-    Result.fMatrix[2][2] = (fMatrix[2][0] * fMa.fMatrix[0][2]) + 
-                           (fMatrix[2][1] * fMa.fMatrix[1][2]) + 
-                           (fMatrix[2][2] * fMa.fMatrix[2][2]);
-
+    Result.fMatrix[2][0] = (fMatrix[2][0] * fMa.fMatrix[0][0]) +
+      (fMatrix[2][1] + fMa.fMatrix[1][0]) +
+      (fMatrix[2][2] * fMa.fMatrix[2][0]);
+    Result.fMatrix[2][1] = (fMatrix[2][0] * fMa.fMatrix[0][1]) +
+      (fMatrix[2][1] * fMa.fMatrix[1][1]) +
+      (fMatrix[2][2] * fMa.fMatrix[2][1]);
+    Result.fMatrix[2][2] = (fMatrix[2][0] * fMa.fMatrix[0][2]) +
+      (fMatrix[2][1] * fMa.fMatrix[1][2]) +
+      (fMatrix[2][2] * fMa.fMatrix[2][2]);
 
     return Result;
   }
@@ -102,13 +99,13 @@ using namespace neEngineSDK;
     bool bIsTrue = false;
     int i, j;
 
-    if ((iRows != MatrizA.iRows) || (iColumns != MatrizA.iColumns))
+    if ((m_iRows != MatrizA.m_iRows) || (m_iColumns != MatrizA.m_iColumns))
       return 0;
     else
     {
-      for (i = 0; i < iRows; i++)
+      for (i = 0; i < m_iRows; i++)
       {
-        for (j = 0; i < iColumns; j++)
+        for (j = 0; i < m_iColumns; j++)
         {
           if (fMatrix[i][j] != MatrizA.fMatrix[i][j])
             return 0;

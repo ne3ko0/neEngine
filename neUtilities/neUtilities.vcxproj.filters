@@ -83,5 +83,8 @@
     <ClCompile Include="src\neMathVector2i.cpp">
       <Filter>Archivos de código fuente\Math</Filter>
     </ClCompile>
+    <ClCompile Include="include\neMathVector2.cpp">
+      <Filter>Archivos de código fuente\Math</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

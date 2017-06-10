@@ -167,6 +167,7 @@
     <ClInclude Include="include\neMathVector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\neMathVector2.cpp" />
     <ClCompile Include="src\neMathVector2i.cpp" />
     <ClCompile Include="src\neString.cpp" />
     <ClCompile Include="src\neUtilities_MathConstants.cpp" />

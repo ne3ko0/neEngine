@@ -4,7 +4,7 @@
 \brief Declares the Matrix3 operations for the engine
 \date 01-06-17
 
-\details Declares a Matrix3 class, which exists inside NEEngineSDK namespace, and contains
+\details Declares a Matrix3 class, which exists inside neEngineSDK namespace, and contains
 Matrix3 operations
 
 \version 1.0
@@ -23,8 +23,8 @@ namespace neEngineSDK {
   class NE_UTILITIES_EXPORT CMatrix3 {
 
   public:
-    int iRows;
-    int iColumns;
+    int m_iRows;
+    int m_iColumns;
 
     union
     {

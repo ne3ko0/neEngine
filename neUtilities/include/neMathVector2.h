@@ -21,44 +21,30 @@
 namespace neEngineSDK {
   class NE_UTILITIES_EXPORT CVector2 {
   public:
-    float X;
-    float Y;
-
-    CVector2(float prm_x = 0.0f, float prm_y = 0.0f) : X(prm_x), Y(prm_y) {}
-
+    float m_X;
+    float m_Y;
+  
     // Common scalar math operators
-    CVector2 operator + (const CVector2& prm_Vector) const { return CVector2(X + 
-                                                                             prm_Vector.X, Y + 
-                                                                             prm_Vector.Y); }
-    CVector2 operator - (const CVector2& prm_Vector) const { return CVector2(X - 
-                                                                             prm_Vector.X, Y - 
-                                                                             prm_Vector.Y); }
-    CVector2 operator * (const float prm_Scalar) const { return CVector2(X * 
-                                                                         prm_Scalar, Y * 
-                                                                         prm_Scalar); }
-    CVector2 operator / (const float prm_Scalar) const { return CVector2(X /  
-                                                                         prm_Scalar, Y / 
-                                                                         prm_Scalar); }
+    CVector2 operator + (const CVector2& prm_Vector) const; 
+    CVector2 operator - (const CVector2& prm_Vector) const; 
+    CVector2 operator * (const float prm_Scalar) const;
+    CVector2 operator / (const float prm_Scalar) const;
 
-    CVector2 operator += (const CVector2& prm_Vector) { return (*this + prm_Vector); }
-    CVector2 operator -= (const CVector2& prm_Vector) { return (*this - prm_Vector); }
-    CVector2 operator *= (const float& prm_Scalar) { return (*this * prm_Scalar); }
-    CVector2 operator /= (const float& prm_Scalar) { return (*this / prm_Scalar); }
+    CVector2 operator += (const CVector2& prm_Vector);
+    CVector2 operator -= (const CVector2& prm_Vector);
+    CVector2 operator *= (const float& prm_Scalar);
+    CVector2 operator /= (const float& prm_Scalar);
 
     //! Common Geometric Functions
-    float			Length() const { return CMath::Sqrt(CMath::Power(X, 2.0f) + 
-                                                  CMath::Power(Y, 2.0f)); }
+    float			Length() const;
     /*!*/
-    float			SqrLength() const { return (CMath::Power(X, 2.0f) + 
-                                          CMath::Power(Y, 2.0f)); }
+    float			SqrLength() const;
     /*!*/
-    float			DotProduct(const CVector2& prm_Vector) const { return ((X * 
-                                                                      prm_Vector.X) + 
-                                                                     (Y * prm_Vector.Y)); }
+    float			DotProduct(const CVector2& prm_Vector) const;
     /*!*/
-    float			Direction() const { return (std::atanf(Y / X)); }
+    float			Direction() const;
     /*!*/
-    void			Normalize() { *this *= 1.0f / Length(); }
+    void			Normalize();
 
     //! Unique Geometric Functions
     /*!
@@ -68,25 +54,22 @@ namespace neEngineSDK {
                                                                                  j(x) = 
                                                                                  (y, -x)
     */
-    CVector2		Perpendicular() const { return CVector2(Y, -X); }
+    CVector2		Perpendicular() const;
     /*!*/
-    CVector2		UnitPerpendicular() { return (Perpendicular() /= Length()); }
+    CVector2		UnitPerpendicular();
     /*!*/
-    float			DotPerpendicular(const CVector2& prm_Vector) { return((X*prm_Vector.Y) - 
-                                                                    (Y*prm_Vector.X)); }
+    float			DotPerpendicular(const CVector2& prm_Vector);
 
     //! Common comparison operators
-    bool operator == (const CVector2& prm_Vector) const { return (X == prm_Vector.X) && 
-                                                                 (Y == prm_Vector.Y); }
-    bool operator != (const CVector2& prm_Vector) const { return (X != prm_Vector.X) || 
-                                                                 (Y != prm_Vector.Y); }
-    bool operator <= (const CVector2& prm_Vector) const 
-                                                  { return Length() <= prm_Vector.Length(); }
-    bool operator >= (const CVector2& prm_Vector) const 
-                                                  { return Length() >= prm_Vector.Length(); }
-    bool operator < (const CVector2& prm_Vector) const 
-                                                  { return Length() < prm_Vector.Length(); }
-    bool operator > (const CVector2& prm_Vector) const 
-                                                  { return Length() <= prm_Vector.Length(); }
+    bool operator == (const CVector2& prm_Vector) const;
+    bool operator != (const CVector2& prm_Vector) const;
+    bool operator <= (const CVector2& prm_Vector) const;                                                 
+    bool operator >= (const CVector2& prm_Vector) const;                                                  
+    bool operator < (const CVector2& prm_Vector) const;                                           
+    bool operator > (const CVector2& prm_Vector) const;
+    
+    CVector2();
+    CVector2(float prm_x, float prm_y);
+    ~CVector2();
   };
 }

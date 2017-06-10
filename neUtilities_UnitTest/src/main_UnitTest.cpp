@@ -2,6 +2,7 @@
 #include "neMathConstants.h"
 #include "neMathVector2i.h"
 #include "neMathMatrix3.h"
+#include "neMathVector2.h"
 
 #include <gtest/gtest.h>
 #define WIN32_LEAN_AND_MEAN
@@ -26,10 +27,10 @@ using std::numeric_limits;
   }
 
   TEST(Utilities, Math) {
-    EXPECT_TRUE(CMath::PI == atanf(1.f / 4.f));
-    EXPECT_TRUE(CMath::PIBYTWO == atanf(1.f / 4.f)/2);
+    EXPECT_TRUE(CMath::PI == atanf(1.f)* (4.f));
+    EXPECT_TRUE(CMath::PIBYTWO == CMath::PI/2);
     EXPECT_TRUE(CMath::INVERSEPI == 1.f / CMath::PI);
-    EXPECT_TRUE(CMath::TWOPI == atanf(1.f / 4.f) * 2);
+    EXPECT_TRUE(CMath::TWOPI == CMath::PI * 2);
     EXPECT_TRUE(CMath::MIN_UINT8 == numeric_limits<uint8>::min());
     EXPECT_TRUE(CMath::MIN_UINT16 == numeric_limits <uint16>::min());
     EXPECT_TRUE(CMath::MIN_UINT32 == numeric_limits<uint32>::min());
@@ -65,6 +66,28 @@ using std::numeric_limits;
       EXPECT_TRUE(CMath::Tangent(0) == 0);      
     }
    
+    TEST(Utilities, Vector2) {
+
+      CVector2 myVector2(2, 2);
+
+      CVector2 myVector21(1, 1);
+
+      CVector2 myVector22(3, 3);
+
+
+      EXPECT_TRUE(myVector2.Length() == 2);
+
+      EXPECT_TRUE(myVector2.m_X + myVector21.m_X == myVector22.m_X);
+      EXPECT_TRUE(myVector2.m_Y + myVector21.m_Y == myVector22.m_Y);
+
+      EXPECT_TRUE(myVector22.m_X - myVector21.m_X == myVector2.m_X);
+      EXPECT_TRUE(myVector22.m_Y - myVector21.m_Y == myVector2.m_Y);
+
+      EXPECT_TRUE(myVector22.m_X * 2 == 6);
+      EXPECT_TRUE(myVector22.m_Y * 2 == 6);
+
+    }
+
     TEST(Utilities, Vector2i) {
       CVector2i myVector2;
       myVector2.m_X = 2;
@@ -94,23 +117,23 @@ using std::numeric_limits;
      
     }
 
-    //TEST(Utilities, Matrix3) {
-    //  CMatrix3 Matrix;
-    //  Matrix.m_Elements.m00 = 1; Matrix.m_Elements.m10 = 4; Matrix.m_Elements.m20 = 7;
-    //  Matrix.m_Elements.m01 = 2; Matrix.m_Elements.m11 = 5; Matrix.m_Elements.m21 = 8;
-    //  Matrix.m_Elements.m02 = 3; Matrix.m_Elements.m12 = 6; Matrix.m_Elements.m22 = 9;
+    TEST(Utilities, Matrix3) {
+      /*CMatrix3 Matrix;
+      Matrix.m_Elements.m00 = 1; Matrix.m_Elements.m10 = 4; Matrix.m_Elements.m20 = 7;
+      Matrix.m_Elements.m01 = 2; Matrix.m_Elements.m11 = 5; Matrix.m_Elements.m21 = 8;
+      Matrix.m_Elements.m02 = 3; Matrix.m_Elements.m12 = 6; Matrix.m_Elements.m22 = 9;
 
-    //  CMatrix3 Matrix1;
-    //  Matrix1.m_Elements.m00 = 1; Matrix1.m_Elements.m10 = 2; Matrix1.m_Elements.m20 = 3;
-    //  Matrix1.m_Elements.m01 = 4; Matrix1.m_Elements.m11 = 5; Matrix1.m_Elements.m21 = 6;
-    //  Matrix1.m_Elements.m02 = 7; Matrix1.m_Elements.m12 = 6; Matrix1.m_Elements.m22 = 9;
+      CMatrix3 Matrix1;
+      Matrix1.m_Elements.m00 = 1; Matrix1.m_Elements.m10 = 2; Matrix1.m_Elements.m20 = 3;
+      Matrix1.m_Elements.m01 = 4; Matrix1.m_Elements.m11 = 5; Matrix1.m_Elements.m21 = 6;
+      Matrix1.m_Elements.m02 = 7; Matrix1.m_Elements.m12 = 6; Matrix1.m_Elements.m22 = 9;
 
-    //  CMatrix3 Matrix2;
-    //  Matrix2.m_Elements.m00 = 2; Matrix2.m_Elements.m10 = 6; Matrix2.m_Elements.m20 = 10;
-    //  Matrix2.m_Elements.m01 = 6; Matrix2.m_Elements.m11 = 10; Matrix2.m_Elements.m21 = 14;
-    //  Matrix2.m_Elements.m02 = 10; Matrix2.m_Elements.m12 = 12; Matrix2.m_Elements.m22 = 18;
+      CMatrix3 Matrix2;
+      Matrix2.m_Elements.m00 = 2; Matrix2.m_Elements.m10 = 6; Matrix2.m_Elements.m20 = 10;
+      Matrix2.m_Elements.m01 = 6; Matrix2.m_Elements.m11 = 10; Matrix2.m_Elements.m21 = 14;
+      Matrix2.m_Elements.m02 = 10; Matrix2.m_Elements.m12 = 12; Matrix2.m_Elements.m22 = 18;*/
 
     //  //CMatrix3 transposedMatrix = Matrix.transposed(Matrix1);
 
     //  //EXPECT_TRUE(transposedMatrix == Matrix2);
-    //}
+    }

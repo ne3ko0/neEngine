@@ -1,10 +1,10 @@
-#include "neUtilities_MathConstants.h"
-#include "neUtilities_MathRadians.h"
-#include "neUtilities_MathDegrees.h"
+#include "neMathConstants.h"
+#include "neMathRadians.h"
+#include "neMathDegrees.h"
 
 namespace neEngineSDK
 {
-  const float					CMath::PI = atanf(1.f / 4.f);
+  const float					CMath::PI = atanf(1.f)*4.f;
   const float					CMath::INVERSEPI = 1.0f / PI;
   const float					CMath::PIBYTWO = PI / 2.0f;
   const float					CMath::TWOPI = 2.0f * PI;
@@ -73,7 +73,7 @@ namespace neEngineSDK
   CRadian CMath::Asin(float prm_Value) {
     if (prm_Value > -1.0f) {
       if (prm_Value < 1.0f) {
-        return CRadian(std::asin(prm_Value));
+        return (CRadian)(std::asin(prm_Value));
       }
 
       else
