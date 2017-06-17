@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neGraphicsAPI", "neApplicat
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neGraphicsAPI_UnitTest", "neGraphicsAPI_UnitTest\neGraphicsAPI_UnitTest.vcxproj", "{4A78715B-4A1B-4E13-ADC5-58162D7E00A2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neRenderMan", "neRenderMan\neRenderMan.vcxproj", "{664F1A6A-3554-4092-A3F5-8270EAA01230}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -71,6 +73,14 @@ Global
 		{4A78715B-4A1B-4E13-ADC5-58162D7E00A2}.Release|x64.Build.0 = Release|x64
 		{4A78715B-4A1B-4E13-ADC5-58162D7E00A2}.Release|x86.ActiveCfg = Release|Win32
 		{4A78715B-4A1B-4E13-ADC5-58162D7E00A2}.Release|x86.Build.0 = Release|Win32
+		{664F1A6A-3554-4092-A3F5-8270EAA01230}.Debug|x64.ActiveCfg = Debug|x64
+		{664F1A6A-3554-4092-A3F5-8270EAA01230}.Debug|x64.Build.0 = Debug|x64
+		{664F1A6A-3554-4092-A3F5-8270EAA01230}.Debug|x86.ActiveCfg = Debug|Win32
+		{664F1A6A-3554-4092-A3F5-8270EAA01230}.Debug|x86.Build.0 = Debug|Win32
+		{664F1A6A-3554-4092-A3F5-8270EAA01230}.Release|x64.ActiveCfg = Release|x64
+		{664F1A6A-3554-4092-A3F5-8270EAA01230}.Release|x64.Build.0 = Release|x64
+		{664F1A6A-3554-4092-A3F5-8270EAA01230}.Release|x86.ActiveCfg = Release|Win32
+		{664F1A6A-3554-4092-A3F5-8270EAA01230}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

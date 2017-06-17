@@ -117,3 +117,8 @@ using namespace neEngineSDK;
     if (bIsTrue == true)
       return 1;
   }
+
+  bool neEngineSDK::CMatrix3::operator&(CMatrix3 & MatrizA)
+  {
+    return false;
+  }

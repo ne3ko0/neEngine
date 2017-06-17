@@ -3,6 +3,7 @@
 #include "neMathVector2i.h"
 #include "neMathMatrix3.h"
 #include "neMathVector2.h"
+#include "neMathVector3.h"
 
 #include <gtest/gtest.h>
 #define WIN32_LEAN_AND_MEAN
@@ -74,8 +75,8 @@ using std::numeric_limits;
 
       CVector2 myVector22(3, 3);
 
-
-      EXPECT_TRUE(myVector2.Length() == 2);
+      
+      EXPECT_TRUE(myVector2.Length() == 2.8284271247f);
 
       EXPECT_TRUE(myVector2.m_X + myVector21.m_X == myVector22.m_X);
       EXPECT_TRUE(myVector2.m_Y + myVector21.m_Y == myVector22.m_Y);
@@ -115,6 +116,32 @@ using std::numeric_limits;
       EXPECT_TRUE(myVector22.m_X * 2 == 6);
       EXPECT_TRUE(myVector22.m_Y * 2 == 6);
      
+    }
+
+    TEST(Utilities, Vector3) {
+
+      CVector3 myVector3(1, 2, 2);
+
+      CVector3 myVector31(1, 1, 1);
+
+      CVector3 myVector32(2, 3, 3);
+
+
+      EXPECT_TRUE(myVector3.Length() == 3);
+      EXPECT_TRUE(myVector3.SqrLength() == 9);
+      EXPECT_TRUE(myVector3.DotProduct(myVector31) == 5);
+
+      EXPECT_TRUE(myVector3.m_X + myVector31.m_X == myVector32.m_X);
+      EXPECT_TRUE(myVector3.m_Y + myVector31.m_Y == myVector32.m_Y);
+      EXPECT_TRUE(myVector3.m_Z + myVector31.m_Z == myVector32.m_Z);
+
+      EXPECT_TRUE(myVector32.m_X - myVector31.m_X == myVector3.m_X);
+      EXPECT_TRUE(myVector32.m_Y - myVector31.m_Y == myVector3.m_Y);
+      EXPECT_TRUE(myVector32.m_Z - myVector31.m_Z == myVector3.m_Z);
+
+      EXPECT_TRUE(myVector32.m_X * 2 == 4);
+      EXPECT_TRUE(myVector32.m_Y * 2 == 6);
+
     }
 
     TEST(Utilities, Matrix3) {

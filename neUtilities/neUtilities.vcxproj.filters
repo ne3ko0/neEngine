@@ -83,7 +83,16 @@
     <ClCompile Include="src\neMathVector2i.cpp">
       <Filter>Archivos de código fuente\Math</Filter>
     </ClCompile>
-    <ClCompile Include="include\neMathVector2.cpp">
+    <ClCompile Include="src\neMathVector2.cpp">
+      <Filter>Archivos de código fuente\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\neMathVector3.cpp">
+      <Filter>Archivos de código fuente\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\neMathVector4.cpp">
+      <Filter>Archivos de código fuente\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\neMathMatrix4.cpp">
       <Filter>Archivos de código fuente\Math</Filter>
     </ClCompile>
   </ItemGroup>

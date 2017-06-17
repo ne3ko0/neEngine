@@ -45,6 +45,7 @@ namespace neEngineSDK {
     CMatrix3 mult(const CMatrix3& fMa);
     CMatrix3 transposed(const CMatrix3& fMa);
     bool operator==(CMatrix3 &MatrizA);
+    bool operator &(CMatrix3 &MatrizA);
 
     CMatrix3();
 

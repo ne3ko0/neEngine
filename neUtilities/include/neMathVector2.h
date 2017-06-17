@@ -44,7 +44,7 @@ namespace neEngineSDK {
     /*!*/
     float			Direction() const;
     /*!*/
-    void			Normalize();
+    CVector2  Normalize(CVector2 a);
 
     //! Unique Geometric Functions
     /*!
