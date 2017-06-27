@@ -4,3 +4,5 @@ lib/
 bin/x64/
 *.sdf
 *.opensdf
+bin/x86/
+neRenderMan/Debug/neRenderMan.log

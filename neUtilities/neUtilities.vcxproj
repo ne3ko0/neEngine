@@ -165,9 +165,9 @@
     <ClInclude Include="include\neUtilities_PlatformTypes.h" />
     <ClInclude Include="include\neUtilities_PlatformDefines.h" />
     <ClInclude Include="include\neMathVector2.h" />
+    <ClInclude Include="include\Win_32\neMinWindows.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\neMathMatrix4.cpp" />
     <ClCompile Include="src\neMathVector2.cpp" />
     <ClCompile Include="src\neMathVector2i.cpp" />
     <ClCompile Include="src\neMathVector3.cpp" />

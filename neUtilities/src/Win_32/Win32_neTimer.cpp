@@ -1,12 +1,7 @@
 #include "neTimer.h"
+#include "Win_32\neMinWindows.h"
 
-#ifdef WIN32_LEAN_AND_MEAN
-# define WIN32_LEAN_AND_MEAN
-#endif
-#if !defined(NOMINMAX) && defined(_MESC_VER)
-# define NOMINMAX // Required to stop windows.h messing up std::min
-#endif
-#include <windows.h>
+
 #include <time.h>
 
 namespace neEngineSDK
