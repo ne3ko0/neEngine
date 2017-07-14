@@ -96,7 +96,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxguid.lib;d3dcompiler.lib;gtestd.lib;gtest_maind.lib;neGraphicsAPId.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxguid.lib;d3dcompiler.lib;gtestd.lib;gtest_maind.lib;neGraphicsAPId.lib;neUtilitiesd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DXSDK_DIR)lib/$(PlatformTarget)/;$(DEVLIBS)googletest/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -111,7 +111,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxguid.lib;d3dcompiler.lib;gtestd.lib;gtest_maind.lib;neGraphicsAPId.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxguid.lib;d3dcompiler.lib;gtestd.lib;gtest_maind.lib;neGraphicsAPId.lib;neUtilitiesd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DXSDK_DIR)lib/$(PlatformTarget)/;$(DEVLIBS)googletest/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -130,7 +130,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>d3d11.lib;dxguid.lib;d3dcompiler.lib;gtest.lib;gtest_main.lib;neGraphicsAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxguid.lib;d3dcompiler.lib;gtest.lib;gtest_main.lib;neGraphicsAPI.lib;neUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DXSDK_DIR)lib/$(PlatformTarget)/;$(DEVLIBS)googletest/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -149,7 +149,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>d3d11.lib;dxguid.lib;d3dcompiler.lib;gtest.lib;gtest_main.lib;neGraphicsAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxguid.lib;d3dcompiler.lib;gtest.lib;gtest_main.lib;neGraphicsAPI.lib;neUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DXSDK_DIR)lib/$(PlatformTarget)/;$(DEVLIBS)googletest/lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>

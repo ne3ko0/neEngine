@@ -7,17 +7,18 @@
 
 namespace neEngineSDK
 {
-  class NE_GRAPHICS_EXPORT CGraphicsDevice
+  class NE_GRAPHICS_EXPORT CSwapChain
   {
   private:
 #if NE_ACTIVE_PLATFORM == NE_PLATFORM_WINDOWS
-    ID3D11Device* pDevice;
+    IDXGISwapChain* pSwapChain;
 #endif
 
   public:
 
-    CGraphicsDevice();
-    ~CGraphicsDevice();
+
+    CSwapChain();
+    ~CSwapChain();
     void create();
     void destroy();
     void* getObject();

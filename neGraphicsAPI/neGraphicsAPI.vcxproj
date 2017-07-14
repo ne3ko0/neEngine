@@ -157,12 +157,18 @@
     <ClInclude Include="include\neGraphicsDevice.h" />
     <ClInclude Include="include\neGraphicsDeviceContext.h" />
     <ClInclude Include="include\neGraphicsPrerequisites.h" />
+    <ClInclude Include="include\neGraphicsRenderTargetView.h" />
+    <ClInclude Include="include\neGraphicsSwapChain.h" />
     <ClInclude Include="include\neGraphicsTexture.h" />
+    <ClInclude Include="neInputLayout.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\neGraphicsBuffer.cpp" />
     <ClCompile Include="src\neGraphicsDevice.cpp" />
     <ClCompile Include="src\neGraphicsDeviceContext.cpp" />
+    <ClCompile Include="src\neGraphicsRenderTargetView.cpp" />
+    <ClCompile Include="src\neGraphicsSwapChain.cpp" />
+    <ClCompile Include="src\neGraphicsTexture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

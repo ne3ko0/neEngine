@@ -66,6 +66,9 @@
     <ClInclude Include="include\Win_32\neMinWindows.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="include\neFileManager.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\neString.cpp">
@@ -94,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="src\neMathVector4.cpp">
       <Filter>Archivos de código fuente\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\neFileManager.cpp">
+      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

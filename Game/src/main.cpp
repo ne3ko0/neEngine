@@ -2,11 +2,6 @@
 #include <neApplicationBase.h>
 
 
-
-
-
-
-
 //g_App.m_iScrHeight = 600;
 //g_App.m_iScrWidth = 800;
 namespace neEngineSDK {

@@ -7,17 +7,16 @@
 
 namespace neEngineSDK
 {
-  class NE_GRAPHICS_EXPORT CGraphicsDevice
+  class NE_GRAPHICS_EXPORT CRenderTargetView
   {
   private:
 #if NE_ACTIVE_PLATFORM == NE_PLATFORM_WINDOWS
-    ID3D11Device* pDevice;
+    ID3D11RenderTargetView* pRenderTargetView;
 #endif
 
   public:
-
-    CGraphicsDevice();
-    ~CGraphicsDevice();
+    CRenderTargetView();
+    ~CRenderTargetView();
     void create();
     void destroy();
     void* getObject();

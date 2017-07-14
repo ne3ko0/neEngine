@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\neFileManager.h" />
     <ClInclude Include="include\neMathVector2i.h" />
     <ClInclude Include="include\neString.h" />
     <ClInclude Include="include\neTimer.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="include\Win_32\neMinWindows.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\neFileManager.cpp" />
     <ClCompile Include="src\neMathVector2.cpp" />
     <ClCompile Include="src\neMathVector2i.cpp" />
     <ClCompile Include="src\neMathVector3.cpp" />

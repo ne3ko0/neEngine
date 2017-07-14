@@ -13,6 +13,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neCore", "neCore\neCore.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neGraphicsAPI_UnitTest", "neGraphicsAPI_UnitTest\neGraphicsAPI_UnitTest.vcxproj", "{4A78715B-4A1B-4E13-ADC5-58162D7E00A2}"
 	ProjectSection(ProjectDependencies) = postProject
+		{C783F33F-2CB3-49AC-A783-2CFCD58110FA} = {C783F33F-2CB3-49AC-A783-2CFCD58110FA}
 		{63B2E6B6-DD9C-49E1-BB54-42ACB1C0FD38} = {63B2E6B6-DD9C-49E1-BB54-42ACB1C0FD38}
 	EndProjectSection
 EndProject

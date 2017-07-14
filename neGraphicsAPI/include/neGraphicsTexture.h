@@ -15,16 +15,16 @@ namespace neEngineSDK
 #endif
   };
 
-  class NE_GRAPHICS_EXPORT CGraphicsTexture
+  class NE_GRAPHICS_EXPORT CTexture
   {
   public:
-    CGraphicsTexture() {};
-    virtual ~CGraphicsTexture() {};
+    CTexture();
+    virtual ~CTexture();
 
     TextureData* m_TextureData;
 
-    //Cargar Textura desde un archivo
-    //Crear una vacía
+    //Load Texture from file
+    //Create empty texture
 
     virtual void LoadFromFile(const char* FileName) = 0;
     virtual void CreateEmpty() = 0;

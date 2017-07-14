@@ -9,9 +9,12 @@
 #include <d3d11.h>
 #include <d3dx11.h>
 
+#include <neMathVector4.h>
 #include <neGraphicsPrerequisites.h>
 #include <neGraphicsDevice.h>
 #include <neGraphicsDeviceContext.h>
+#include <neGraphicsRenderTargetView.h>
+#include <neGraphicsSwapChain.h>
 
 using namespace neEngineSDK;
 
@@ -25,7 +28,10 @@ D3D_FEATURE_LEVEL       g_featureLevel = D3D_FEATURE_LEVEL_11_0;
 CGraphicsDevice         m_Device;
 CGraphicsDeviceContext  m_DeviceContext;
 IDXGISwapChain*         g_pSwapChain = NULL;
-ID3D11RenderTargetView* g_pRenderTargetView = NULL;
+CSwapChain              m_SwapChain;
+CRenderTargetView       m_pRenderTargetView;
+ID3D11VertexShader*     g_pVertexShader = NULL;
+ID3D11PixelShader*      g_pPixelShader = NULL;
 
 
 //--------------------------------------------------------------------------------------
@@ -190,7 +196,12 @@ HRESULT InitDevice()
   sd.Windowed = TRUE;
 
   ID3D11Device** pDevice = reinterpret_cast<ID3D11Device**>(m_Device.getReference());
-  ID3D11DeviceContext** pDeviceContext = reinterpret_cast<ID3D11DeviceContext**>(m_DeviceContext.getReference());
+  ID3D11DeviceContext** pDeviceContext = reinterpret_cast<ID3D11DeviceContext**>
+                        (m_DeviceContext.getReference());
+  ID3D11RenderTargetView** pRenderTargetView = reinterpret_cast<ID3D11RenderTargetView**>
+                        (m_pRenderTargetView.getReference());
+  IDXGISwapChain* pSwapChain = reinterpret_cast<IDXGISwapChain*>
+                        (m_SwapChain.getReference());
 
   for (UINT driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++)
   {
@@ -209,12 +220,12 @@ HRESULT InitDevice()
   if (FAILED(hr))
     return hr;
 
-  hr = (*pDevice)->CreateRenderTargetView(pBackBuffer, NULL, &g_pRenderTargetView);
+  hr = (*pDevice)->CreateRenderTargetView(pBackBuffer, NULL, pRenderTargetView);
   pBackBuffer->Release();
   if (FAILED(hr))
     return hr;
 
-  (*pDeviceContext)->OMSetRenderTargets(1, &g_pRenderTargetView, NULL);
+  (*pDeviceContext)->OMSetRenderTargets(1, pRenderTargetView, NULL);
 
   // Setup the viewport
   D3D11_VIEWPORT vp;
@@ -229,17 +240,118 @@ HRESULT InitDevice()
   return S_OK;
 }
 
+void SetInfoToRender()
+{
+  //ID3DBlob* MyShaderCompileInfoCode ;
 
+  //ID3D11InputLayout* ILayOut;
+
+  //D3D11_INPUT_ELEMENT_DESC layout[] =
+  //{
+  //  { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+  //};
+
+
+  ////To Do: compilar shader
+  //ID3DBlob* pErrorBlob;
+  //HRESULT hr;
+  //  hr =  D3DCompileFromFile("C:\Motorsisimo\NekoEngine2\bin\Resourse\Shaders", NULL, NULL, "VS", "VS_M_5.0",
+  //  D3DCOMPILE_DEBUG, 0, MyShaderCompileInfoCode, &pErrorBlob);
+    //(*pDevice)->CreateInputLayout(layout, 0, MyShaderCompileInfoCode->GetBufferPointer(), MyShaderCompileInfoCode->GetBufferSize(), &ILayOut);
+
+
+  ID3D11Buffer* pVertexB;
+  ID3D11Buffer* pIndexB;
+
+  //Create VertexBuffer
+
+  struct Vertex
+  {
+    neEngineSDK::CVector4 m_Pos;
+  };
+
+  Vertex VerToRender[3]
+  {
+    CVector4(0.0f, 0.5f, 0.5f, 0.f),
+    CVector4(0.5f, -0.5f,   0.5f, 0.f),
+    CVector4(-0.5f, -0.5f,  0.5f, 0.f)
+  };
+
+
+  D3D11_BUFFER_DESC DesVerBuffer;
+  DesVerBuffer.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+  DesVerBuffer.ByteWidth = sizeof(Vertex) * 3; //Tamaño quw tendrá el buffer  
+  DesVerBuffer.CPUAccessFlags = 0;
+  DesVerBuffer.MiscFlags = 0;
+  DesVerBuffer.Usage = D3D11_USAGE_DEFAULT;
+
+  D3D11_SUBRESOURCE_DATA InitData;
+  ZeroMemory(&InitData, sizeof(InitData));
+  InitData.pSysMem = VerToRender;
+  ID3D11Device** pDevice = reinterpret_cast<ID3D11Device**>(m_Device.getReference());
+  (*pDevice)->CreateBuffer(&DesVerBuffer, &InitData, &pVertexB);
+
+
+  //Reate Index Buffer
+  struct INDEX
+  {
+    float m_Pos;
+
+  };
+
+  INDEX IndexToRender[3]
+  {
+    float(1.0f),
+    float(2.0f),
+    float(3.0f)
+  };
+
+  
+  D3D11_BUFFER_DESC DesIndBuffer;
+  DesIndBuffer.BindFlags = D3D11_BIND_INDEX_BUFFER;
+  DesIndBuffer.ByteWidth = sizeof(INDEX) * 3; //Tamaño quw tendrá el buffer
+  DesIndBuffer.CPUAccessFlags = 0;
+  DesIndBuffer.MiscFlags = 0;
+  DesIndBuffer.Usage = D3D11_USAGE_DEFAULT;
+
+  //D3D11_SUBRESOURCE_DATA InitData;
+  //ZeroMemory(&InitData, sizeof(InitData));
+  //InitData.pSysMem = IndexToRender;
+
+  (*pDevice)->CreateBuffer(&DesIndBuffer, &InitData, &pIndexB);
+
+  
+
+  UINT  stride = sizeof(Vertex);
+  ID3D11DeviceContext** pDeviceContext = reinterpret_cast<ID3D11DeviceContext**>
+    (m_DeviceContext.getReference());
+  (*pDeviceContext)->IASetVertexBuffers(0, 1, &pVertexB, &stride, 0);
+
+
+  (*pDeviceContext)->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+}
 //--------------------------------------------------------------------------------------
 // Render the frame
 //--------------------------------------------------------------------------------------
 void Render()
 {
-  ID3D11DeviceContext* pDeviceContext = reinterpret_cast<ID3D11DeviceContext*>(m_DeviceContext.getObject());
+  ID3D11DeviceContext* pDeviceContext = reinterpret_cast<ID3D11DeviceContext*>
+                                        (m_DeviceContext.getObject());
+  ID3D11RenderTargetView** pRenderTargetView = reinterpret_cast<ID3D11RenderTargetView**>
+                                               (m_pRenderTargetView.getReference());
+  IDXGISwapChain* pSwapChain = reinterpret_cast<IDXGISwapChain*>
+                                (m_SwapChain.getReference());
+
   // Just clear the backbuffer
-  float ClearColor[4] = { 1.0f, 1.0f, 0.0f, 0.0f }; //red,green,blue,alpha
-  pDeviceContext->ClearRenderTargetView(g_pRenderTargetView, ClearColor);
+  float ClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f }; //red,green,blue,alpha
+  pDeviceContext->ClearRenderTargetView(*pRenderTargetView, ClearColor);
   g_pSwapChain->Present(0, 0);
+
+  // Render a triangle
+  pDeviceContext->VSSetShader(g_pVertexShader, NULL, 0);
+  pDeviceContext->PSSetShader(g_pPixelShader, NULL, 0);
+  pDeviceContext->Draw(3, 0);
 }
 
 
@@ -248,11 +360,8 @@ void Render()
 //--------------------------------------------------------------------------------------
 void CleanupDevice()
 {
-  ID3D11DeviceContext* pDeviceContext = reinterpret_cast<ID3D11DeviceContext*>(m_DeviceContext.getObject());
-  if (pDeviceContext) pDeviceContext->ClearState();
-
-  if (g_pRenderTargetView) g_pRenderTargetView->Release();
-  if (g_pSwapChain) g_pSwapChain->Release();
-  if (pDeviceContext) pDeviceContext->Release();
+  m_pRenderTargetView.destroy();
+  m_SwapChain.destroy();
+  m_DeviceContext.destroy();
   m_Device.destroy();
 }
