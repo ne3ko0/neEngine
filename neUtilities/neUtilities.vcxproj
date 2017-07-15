@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="include\neFileManager.h" />
     <ClInclude Include="include\neMathVector2i.h" />
+    <ClInclude Include="include\neModule.h" />
     <ClInclude Include="include\neString.h" />
     <ClInclude Include="include\neTimer.h" />
     <ClInclude Include="include\neMathConstants.h" />

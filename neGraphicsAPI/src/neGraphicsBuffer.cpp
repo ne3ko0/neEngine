@@ -1,4 +1,5 @@
 #include "neGraphicsBuffer.h"
+#include "neGraphicsAPI.h"
 
 
 namespace neEngineSDK
@@ -24,11 +25,11 @@ namespace neEngineSDK
 
 
 
-  neEngineSDK::CBufferBase::CBufferBase() : pBufferBase(nullptr) {
+  CBufferBase::CBufferBase() : m_pBufferBase(nullptr) {
 
   }
 
-  neEngineSDK::CBufferBase::~CBufferBase()
+  CBufferBase::~CBufferBase()
   {
   }
 
@@ -43,19 +44,19 @@ namespace neEngineSDK
   }
 
   template<typename T>
-  void neEngineSDK::CIndexBuffer<T>::Add(T nIndex)
+  void CIndexBuffer<T>::Add(T nIndex)
   {
     m_indexArray.push_back(nIndex);
   }
 
   template<typename T>
-  void neEngineSDK::CIndexBuffer<T>::Add(const std::vector<T>& nIndexArray)
+  void CIndexBuffer<T>::Add(const std::vector<T>& nIndexArray)
   {
     Add(&nIndexArray[0], nIndexArray.size());
   }
 
   template<typename T>
-  void neEngineSDK::CIndexBuffer<T>::Add(T * pArray, unsigned int nNumObjects)
+  void CIndexBuffer<T>::Add(T * pArray, unsigned int nNumObjects)
   {
     for (unsigned int i = 0; i < nNumObjects; ++i) {
       m_indexArray.push_back(pArray[i]);
@@ -63,20 +64,20 @@ namespace neEngineSDK
   }
 
   template<typename T>
-  void neEngineSDK::CIndexBuffer<T>::Remove(unsigned int nIndex, unsigned int count)
+  void CIndexBuffer<T>::Remove(unsigned int nIndex, unsigned int count)
   {
     m_indexArray.erase(m_indexArray.begin() + nIndex,
       (m_indexArray.begin() + nIndex) + (count - 1));
   }
 
   template<typename T>
-  void neEngineSDK::CIndexBuffer<T>::Clear()
+  void CIndexBuffer<T>::Clear()
   {
     m_indexArray.clear();
   }
 
   template<typename T>
-  void neEngineSDK::CIndexBuffer<T>::CreateHardwareBuffer(int usageFags)
+  void CIndexBuffer<T>::CreateHardwareBuffer(int usageFags)
   {
     if (!m_indexArray.size()) {
       return;
@@ -94,18 +95,29 @@ namespace neEngineSDK
     }
 
     indexBufferDesc.ByteWidth = sizeof(T) * m_indexArray.size();
-    indexBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+    indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
     indexBufferDesc.CPUAccessFlags = 0;
     indexBufferDesc.MiscFlags = 0;
     indexBufferDesc.StructureByteStride = 0;
 
-    HRESULT result = device->CreateBuffer(&indexBufferDesc, indexData, &m_pBuffer);
+    neGraphicsAPI* pGraphicsAPI = g_GraphicsAPI().instancePtr();
+    ID3D11Device* pDevice = reinterpret_cast<ID3D11Device*>(pGraphicsAPI->m_Device.getObject());
+
+    D3D11_SUBRESOURCE_DATA srData;
+    srData.pSysMem = &m_indexArray[0];
+    srData.SysMemPitch = 0;
+    srData.SysMemSlicePitch = 0;
+
+    HRESULT result = pDevice->CreateBuffer(&indexBufferDesc, &srData, &m_pBufferBase);
     if (FAILED(result))
     {
       return false;
     }
   }
+  typedef CIndexBuffer<unsigned short> CIndexBuffer16;
+  typedef CIndexBuffer<unsigned int> CIndexBuffer32;
 
-  typedef neEngineSDK::CIndexBuffer<unsigned short> CIndexBuffer16;
-  typedef neEngineSDK::CIndexBuffer<unsigned int> CIndexBuffer32;
+
+  //TODO: CVertexBuffer
+  
 }

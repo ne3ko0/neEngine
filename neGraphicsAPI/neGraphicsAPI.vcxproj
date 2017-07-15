@@ -152,17 +152,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\neGraphicsAPI.h" />
     <ClInclude Include="include\neGraphicsBuffer.h" />
     <ClInclude Include="include\neGraphicsDefines.h" />
     <ClInclude Include="include\neGraphicsDevice.h" />
     <ClInclude Include="include\neGraphicsDeviceContext.h" />
+    <ClInclude Include="include\neGraphicsInputLayout.h" />
     <ClInclude Include="include\neGraphicsPrerequisites.h" />
     <ClInclude Include="include\neGraphicsRenderTargetView.h" />
     <ClInclude Include="include\neGraphicsSwapChain.h" />
     <ClInclude Include="include\neGraphicsTexture.h" />
-    <ClInclude Include="neInputLayout.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\neGraphicsAPI.cpp" />
     <ClCompile Include="src\neGraphicsBuffer.cpp" />
     <ClCompile Include="src\neGraphicsDevice.cpp" />
     <ClCompile Include="src\neGraphicsDeviceContext.cpp" />
