@@ -198,3 +198,4 @@ namespace neEngineSDK
     pDeviceContext->IASetVertexBuffers(Slot, 1, &m_pBufferBase, &stride, &offset);
   }
 }
+

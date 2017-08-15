@@ -211,8 +211,6 @@ HRESULT InitDevice()
   
   for (UINT driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++)
   {
-
-
     g_driverType = driverTypes[driverTypeIndex];
     hr = D3D11CreateDeviceAndSwapChain(NULL, g_driverType, NULL, createDeviceFlags, featureLevels, numFeatureLevels,
       D3D11_SDK_VERSION, &sd, pRefSwapChain, pRefDevice, &g_featureLevel, pRefDeviceContext);
@@ -253,6 +251,7 @@ HRESULT InitDevice()
   pDeviceContext->RSSetViewports(1, &vp);
 
   // Compile the vertex shader
+  
   ID3DBlob* pVSBlob = NULL;
   hr = CompileShaderFromFile("resource/shader.hlsl", "VS", "vs_4_0", &pVSBlob);
   if (FAILED(hr))
@@ -276,7 +275,7 @@ HRESULT InitDevice()
     { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
   };
   UINT numElements = ARRAYSIZE(layout);
-
+  
   // Create the input layout
   hr = pDevice->CreateInputLayout(layout, numElements, pVSBlob->GetBufferPointer(),
     pVSBlob->GetBufferSize(), &g_pVertexLayout);
