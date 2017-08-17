@@ -1,0 +1,91 @@
+void SetInfoToRender()
+{
+  //ID3DBlob* MyShaderCompileInfoCode ;
+
+  //ID3D11InputLayout* ILayOut;
+
+  //D3D11_INPUT_ELEMENT_DESC layout[] =
+  //{
+  //  { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+  //};
+
+
+  ////To Do: compilar shader
+  //ID3DBlob* pErrorBlob;
+  //HRESULT hr;
+  //  hr =  D3DCompileFromFile("C:\Motorsisimo\NekoEngine2\bin\Resourse\Shaders", NULL, NULL, "VS", "VS_M_5.0",
+  //  D3DCOMPILE_DEBUG, 0, MyShaderCompileInfoCode, &pErrorBlob);
+    //(*pDevice)->CreateInputLayout(layout, 0, MyShaderCompileInfoCode->GetBufferPointer(), MyShaderCompileInfoCode->GetBufferSize(), &ILayOut);
+
+
+  ID3D11Buffer* pVertexB;
+  ID3D11Buffer* pIndexB;
+
+  //Create VertexBuffer
+
+  struct Vertex
+  {
+    neEngineSDK::CVector4 m_Pos;
+  };
+
+  Vertex VerToRender[3]
+  {
+    CVector4(0.0f, 0.5f, 0.5f, 0.f),
+    CVector4(0.5f, -0.5f,   0.5f, 0.f),
+    CVector4(-0.5f, -0.5f,  0.5f, 0.f)
+  };
+
+
+  D3D11_BUFFER_DESC DesVerBuffer;
+  DesVerBuffer.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+  DesVerBuffer.ByteWidth = sizeof(Vertex) * 3; //Tamaño que tendrá el buffer  
+  DesVerBuffer.CPUAccessFlags = 0;
+  DesVerBuffer.MiscFlags = 0;
+  DesVerBuffer.Usage = D3D11_USAGE_DEFAULT;
+
+  D3D11_SUBRESOURCE_DATA InitData;
+  ZeroMemory(&InitData, sizeof(InitData));
+  InitData.pSysMem = VerToRender;
+  ID3D11Device** pDevice = reinterpret_cast<ID3D11Device**>(m_Device.getReference());
+  (*pDevice)->CreateBuffer(&DesVerBuffer, &InitData, &pVertexB);
+
+
+  //CReate Index Buffer
+  struct INDEX
+  {
+    float m_Pos;
+
+  };
+
+  INDEX IndexToRender[3]
+  {
+    float(1.0f),
+    float(2.0f),
+    float(3.0f)
+  };
+
+  
+  D3D11_BUFFER_DESC DesIndBuffer;
+  DesIndBuffer.BindFlags = D3D11_BIND_INDEX_BUFFER;
+  DesIndBuffer.ByteWidth = sizeof(INDEX) * 3; //Tamaño quw tendrá el buffer
+  DesIndBuffer.CPUAccessFlags = 0;
+  DesIndBuffer.MiscFlags = 0;
+  DesIndBuffer.Usage = D3D11_USAGE_DEFAULT;
+
+  //D3D11_SUBRESOURCE_DATA InitData;
+  //ZeroMemory(&InitData, sizeof(InitData));
+  //InitData.pSysMem = IndexToRender;
+
+  (*pDevice)->CreateBuffer(&DesIndBuffer, &InitData, &pIndexB);
+
+  
+
+  UINT  stride = sizeof(Vertex);
+  ID3D11DeviceContext** pDeviceContext = reinterpret_cast<ID3D11DeviceContext**>
+    (m_DeviceContext.getReference());
+  (*pDeviceContext)->IASetVertexBuffers(0, 1, &pVertexB, &stride, 0);
+
+
+  (*pDeviceContext)->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+}

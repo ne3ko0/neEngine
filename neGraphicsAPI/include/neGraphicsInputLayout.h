@@ -15,7 +15,7 @@ namespace neEngineSDK
   {
 #if NE_ACTIVE_PLATFORM == NE_PLATFORM_WINDOWS
     ID3D11InputLayout* m_VertexLayout;
-    vector<D3D11_INPUT_ELEMENT_DESC> m_LayOutElement;
+    //vector<D3D11_INPUT_ELEMENT_DESC> m_LayOutElement;
 #endif
   };
 

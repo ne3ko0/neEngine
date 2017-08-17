@@ -2,8 +2,7 @@
 
 #include "neGraphicsPrerequisites.h"
 
-#include <neGraphicsAPI.h>
-#include <neModule.h>
+
 
 #if NE_ACTIVE_PLATFORM == NE_PLATFORM_WINDOWS
 #	include<d3d11.h>
@@ -16,7 +15,7 @@ namespace neEngineSDK
     
   public: 
     CShaderBase();
-    ~CShaderBase();
+    virtual ~CShaderBase();
 
   public:
     static const String SM_VS;

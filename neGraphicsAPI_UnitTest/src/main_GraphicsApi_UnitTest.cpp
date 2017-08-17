@@ -10,8 +10,10 @@
 #include <neGraphicsAPI.h>
 #include <neGraphicsBuffer.h>
 #include <neModule.h>
+#include <neGraphicsVertexShader.h>
 
 using namespace neEngineSDK;
+
 //--------------------------------------------------------------------------------------
 // Structures
 //--------------------------------------------------------------------------------------
@@ -31,7 +33,8 @@ D3D_FEATURE_LEVEL       g_featureLevel = D3D_FEATURE_LEVEL_11_0;
 
 CVertexBuffer<NEVERTEX> m_VertexBuffer;
 
-ID3D11VertexShader*     g_pVertexShader = NULL;
+//CVertexShader         m_VertexShader;
+//ID3D11VertexShader*   g_pVertexShader = NULL;
 ID3D11PixelShader*      g_pPixelShader = NULL;
 ID3D11InputLayout*      g_pVertexLayout = NULL;
 ID3D11Buffer*           g_pVertexBuffer = NULL;
@@ -251,21 +254,14 @@ HRESULT InitDevice()
   pDeviceContext->RSSetViewports(1, &vp);
 
   // Compile the vertex shader
-  
+  ID3D11VertexShader** pRefVertexShader = reinterpret_cast<ID3D11VertexShader**>(g_GraphicsAPI().m_VertexShader.getReference());
+
   ID3DBlob* pVSBlob = NULL;
-  hr = CompileShaderFromFile("resource/shader.hlsl", "VS", "vs_4_0", &pVSBlob);
+  hr = g_GraphicsAPI().m_VertexShader.create("resource/shader.hlsl", "VS", "vs_4_0");
   if (FAILED(hr))
   {
     MessageBox(NULL,
       "The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", "Error", MB_OK);
-    return hr;
-  }
-
-  // Create the vertex shader
-  hr = pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), NULL, &g_pVertexShader);
-  if (FAILED(hr))
-  {
-    pVSBlob->Release();
     return hr;
   }
 
@@ -328,7 +324,7 @@ void CleanupDevice()
 {
   if (g_pVertexBuffer) g_pVertexBuffer->Release();
   if (g_pVertexLayout) g_pVertexLayout->Release();
-  if (g_pVertexShader) g_pVertexShader->Release();
+  //if (m_VertexShader) m_VertexShader->destroy();
   if (g_pPixelShader) g_pPixelShader->Release();
 }
 
@@ -370,11 +366,13 @@ void Render()
   ID3D11DeviceContext* pDeviceContext = reinterpret_cast<ID3D11DeviceContext*>(g_GraphicsAPI().m_DeviceContext.getObject());
   ID3D11RenderTargetView* pRenderTargetView = reinterpret_cast<ID3D11RenderTargetView*>(g_GraphicsAPI().m_pRenderTargetView.getObject());
   IDXGISwapChain* pSwapChain = reinterpret_cast<IDXGISwapChain*>(g_GraphicsAPI().m_SwapChain.getObject());
+  ID3D11VertexShader* pVertexShader = reinterpret_cast<ID3D11VertexShader*>(g_GraphicsAPI().m_VertexShader.getObject());
+  
 
   pDeviceContext->ClearRenderTargetView(pRenderTargetView, ClearColor);
-
+  
   // Render a triangle
-  pDeviceContext->VSSetShader(g_pVertexShader, NULL, 0);
+  pDeviceContext->VSSetShader(pVertexShader, NULL, 0);
   pDeviceContext->PSSetShader(g_pPixelShader, NULL, 0);
   pDeviceContext->Draw(3, 0);
 

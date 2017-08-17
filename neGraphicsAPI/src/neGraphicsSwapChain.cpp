@@ -4,7 +4,7 @@ namespace neEngineSDK
 {
   CSwapChain::CSwapChain()
   {
-    pSwapChain = nullptr;
+    m_pSwapChain = nullptr;
   }
 
   CSwapChain::~CSwapChain()
@@ -18,20 +18,20 @@ namespace neEngineSDK
 
   void* CSwapChain::getObject()
   {
-    return reinterpret_cast<void*>(pSwapChain);
+    return reinterpret_cast<void*>(m_pSwapChain);
   }
 
   void** CSwapChain::getReference()
   {
-    return reinterpret_cast<void**>(&pSwapChain);
+    return reinterpret_cast<void**>(&m_pSwapChain);
   }
 
   void CSwapChain::destroy()
   {
-    if (pSwapChain)
+    if (m_pSwapChain)
     {
-      pSwapChain->Release();
-      pSwapChain = nullptr;
+      m_pSwapChain->Release();
+      m_pSwapChain = nullptr;
     }
   }
 }

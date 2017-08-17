@@ -6,6 +6,7 @@
 #include "neGraphicsDeviceContext.h"
 #include "neGraphicsSwapChain.h"
 #include "neGraphicsRenderTargetView.h"
+#include "neGraphicsVertexShader.h"
 
 namespace neEngineSDK {
 
@@ -16,6 +17,8 @@ namespace neEngineSDK {
     CGraphicsDeviceContext  m_DeviceContext;
     CSwapChain              m_SwapChain;
     CRenderTargetView       m_pRenderTargetView;
+    CVertexShader           m_VertexShader;
+  
 
     neGraphicsAPI() {}
     ~neGraphicsAPI();

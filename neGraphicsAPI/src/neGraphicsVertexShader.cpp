@@ -1,23 +1,37 @@
 #include "neGraphicsVertexShader.h"
 
+#include "neGraphicsAPI.h"
 
-#include <sstream>
+#include <fstream>
 #include <d3dcompiler.h>
 
 namespace neEngineSDK
 {
-  CVertextShader::CVertextShader() : m_pVertexShader(nullptr)
+  using std::ifstream;
+  using std::ios;
+
+  CVertexShader::CVertexShader() : m_pVertexShader(nullptr)
   {
 
   }
 
-  CVertextShader::~CVertextShader()
+  CVertexShader::~CVertexShader()
   {
 
   }
 
-  int CVertextShader::create(String prmFileName, String prmEntryPoint, String prmShaderModel)
+  int CVertexShader::create(String prmFileName, String prmEntryPoint, String prmShaderModel)
   {
+    /************************************************************************/
+    //Carga el código del archivo especificado
+    ifstream myFileShaderStream;
+    myFileShaderStream.open(prmFileName, ios::in | ios::ate);
+    size_t fileLeghtShader = myFileShaderStream.tellg();
+    myFileShaderStream.seekg(0, ios::beg);
+    String pFileData(fileLeghtShader + 1, '\0');
+    myFileShaderStream.read(&pFileData[0], fileLeghtShader);
+    myFileShaderStream.close();
+    /************************************************************************/
     // Compile the vertex shader
     HRESULT hr = S_OK;
 
@@ -31,16 +45,17 @@ namespace neEngineSDK
 #endif
 
     ID3DBlob* pErrorBlob;
-    hr = D3DCompile(m_pVertexShader /*LPCVOID pSrcData*/,
-                    sizeof(m_pVertexShader)/*SIZE_T SrcDataSize*/,
-                    prmFileName.c_str(), NULL/*D3D_SHADER_MACRO *pDefines*/, 
+    hr = D3DCompile(pFileData.c_str() /*LPCVOID pSrcData*/,
+                    sizeof(pFileData.c_str())/*SIZE_T SrcDataSize*/,
+                    prmFileName.c_str(),
+                    NULL/*D3D_SHADER_MACRO *pDefines*/, 
                     NULL /*ID3DInclude *pInclude*/,
                     prmEntryPoint.c_str()/*LPCSTR pEntrypoint*/, 
-                    0/*LPCSTR pTarget*/, 
+                    prmShaderModel.c_str()/*LPCSTR pTarget*/,
                     NULL/*UINT Flags1*/,
                     NULL/*UINT Flags2*/, 
-                    &pErrorBlob/*ID3DBlob ppCode*/, 
-                    NULL/*ID3DBlob ppErrorMsgs*/);
+                    &m_pBlob/*ID3DBlob ppCode*/, 
+                    &pErrorBlob/*ID3DBlob ppErrorMsgs*/);
     if (FAILED(hr))
     {
       if (pErrorBlob != NULL)
@@ -62,12 +77,26 @@ namespace neEngineSDK
     }
   }
 
-  void CVertextShader::destroy()
+  void CVertexShader::destroy()
   {
-
+    if (m_pVertexShader)
+    {
+      m_pVertexShader->Release();
+      m_pVertexShader = nullptr;
+    }
   }
 
-  void CVertextShader::Set(CGraphicsDeviceContext* pDeviceContext)
+  void* CVertexShader::getObject()
+  {
+    return reinterpret_cast<int*>(m_pVertexShader);
+  }
+
+  void** CVertexShader::getReference()
+  {
+    return reinterpret_cast<void**>(&m_pVertexShader);
+  }
+
+  void CVertexShader::Set(CGraphicsDeviceContext* pDeviceContext)
   {
   }
 

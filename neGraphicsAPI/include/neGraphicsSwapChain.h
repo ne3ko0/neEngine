@@ -11,7 +11,7 @@ namespace neEngineSDK
   {
   private:
 #if NE_ACTIVE_PLATFORM == NE_PLATFORM_WINDOWS
-    IDXGISwapChain* pSwapChain;
+    IDXGISwapChain* m_pSwapChain;
 #endif
 
   public:

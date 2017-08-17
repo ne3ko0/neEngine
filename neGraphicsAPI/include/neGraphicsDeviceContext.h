@@ -12,7 +12,7 @@ namespace neEngineSDK
   {
   private:
 #if NE_ACTIVE_PLATFORM == NE_PLATFORM_WINDOWS
-    ID3D11DeviceContext* pDeviceContext;
+    ID3D11DeviceContext* m_pDeviceContext;
 #endif
 
   public:

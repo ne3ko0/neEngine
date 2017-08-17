@@ -4,7 +4,7 @@ namespace neEngineSDK
 {
   CGraphicsDevice::CGraphicsDevice()
   {
-      pDevice = nullptr;   
+      m_pDevice = nullptr;   
   }
 
   CGraphicsDevice::~CGraphicsDevice()
@@ -18,20 +18,20 @@ namespace neEngineSDK
 
   void* CGraphicsDevice::getObject()
   {
-    return reinterpret_cast<void*>(pDevice);
+    return reinterpret_cast<void*>(m_pDevice);
   }
 
   void** CGraphicsDevice::getReference()
   {
-    return reinterpret_cast<void**>(&pDevice);
+    return reinterpret_cast<void**>(&m_pDevice);
   }
 
   void CGraphicsDevice::destroy()
   {
-    if (pDevice)
+    if (m_pDevice)
     {
-      pDevice->Release();
-      pDevice = nullptr;
+      m_pDevice->Release();
+      m_pDevice = nullptr;
     }
   }
 }

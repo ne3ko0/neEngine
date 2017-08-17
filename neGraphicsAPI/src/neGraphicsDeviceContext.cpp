@@ -4,7 +4,7 @@ namespace neEngineSDK
 {
   CGraphicsDeviceContext::CGraphicsDeviceContext()
   {
-    pDeviceContext = nullptr;
+    m_pDeviceContext = nullptr;
   }
   CGraphicsDeviceContext::~CGraphicsDeviceContext()
   {
@@ -15,18 +15,18 @@ namespace neEngineSDK
   }
   void CGraphicsDeviceContext::destroy()
   {
-    if (pDeviceContext)
+    if (m_pDeviceContext)
     {
-      pDeviceContext->Release();
-      pDeviceContext = nullptr;
+      m_pDeviceContext->Release();
+      m_pDeviceContext = nullptr;
     }
   }
   void * CGraphicsDeviceContext::getObject()
   {
-    return reinterpret_cast<void*>(pDeviceContext);
+    return reinterpret_cast<void*>(m_pDeviceContext);
   }
   void ** CGraphicsDeviceContext::getReference()
   {
-    return reinterpret_cast<void**>(&pDeviceContext);
+    return reinterpret_cast<void**>(&m_pDeviceContext);
   }
 }

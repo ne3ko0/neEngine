@@ -24,7 +24,7 @@ namespace neEngineSDK
   //}
   void CTexture::CreateEmpty()
   {
-    m_TextureData->myTexture1D;
+    m_pTextureData->myTexture1D;
   }
   void CTexture::Release()
   {}

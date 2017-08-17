@@ -21,7 +21,7 @@ namespace neEngineSDK
     CTexture();
     virtual ~CTexture();
 
-    TextureData* m_TextureData;
+    TextureData* m_pTextureData;
 
     //Load Texture from file
     //Create empty texture

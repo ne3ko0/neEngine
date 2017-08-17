@@ -4,11 +4,13 @@
 
 namespace neEngineSDK
 {
-  class NE_GRAPHICS_EXPORT CVertextShader : public CShaderBase
+  class CGraphicsDeviceContext;
+
+  class NE_GRAPHICS_EXPORT CVertexShader : public CShaderBase
   {
   public:
-    CVertextShader();
-    ~CVertextShader();
+    CVertexShader();
+    ~CVertexShader();
 
   public:
     ID3D11VertexShader* m_pVertexShader;
@@ -16,5 +18,7 @@ namespace neEngineSDK
     int create(String prmFileName, String prmEntryPoint, String prmShaderModel);
     void destroy();
     void Set(CGraphicsDeviceContext* pDeviceContext);
+    void* getObject();
+    void** getReference();
   };
 }
