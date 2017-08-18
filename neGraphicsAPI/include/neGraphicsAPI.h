@@ -16,9 +16,7 @@ namespace neEngineSDK {
     CGraphicsDevice         m_Device;
     CGraphicsDeviceContext  m_DeviceContext;
     CSwapChain              m_SwapChain;
-    CRenderTargetView       m_pRenderTargetView;
-    CVertexShader           m_VertexShader;
-  
+    CRenderTargetView       m_pBBUfferRTV;
 
     neGraphicsAPI() {}
     ~neGraphicsAPI();

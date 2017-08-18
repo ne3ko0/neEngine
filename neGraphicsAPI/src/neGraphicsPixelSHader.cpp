@@ -17,12 +17,11 @@ namespace neEngineSDK
 
   }
 
-  int CPixelShader::create(String prmFileName, String prmEntryPoint, String prmShaderModel)
+  bool CPixelShader::create(const String& prmFileName, const String& prmEntryPoint, const String& prmShaderModel)
   {
     /************************************************************************/
-    String fileName = "resource\\shader.hlsl";
     std::fstream myFileStream;
-    myFileStream.open(fileName, std::ios::in | std::ios::out | std::ios::ate);
+    myFileStream.open(prmFileName, std::ios::in | std::ios::out | std::ios::ate);
     unsigned int fileLeght = myFileStream.tellg();
     myFileStream.seekg(0, std::ios::beg);
 
@@ -45,23 +44,23 @@ namespace neEngineSDK
 #endif
 
     ID3DBlob* pErrorBlob;
-    hr = D3DCompile(pBuffer.c_str() /*LPCVOID pSrcData*/,
-      sizeof(pBuffer.c_str())/*SIZE_T SrcDataSize*/,
+    hr = D3DCompile(pBuffer.c_str(),
+      pBuffer.size(),
       prmFileName.c_str(),
-      NULL/*D3D_SHADER_MACRO *pDefines*/,
-      NULL /*ID3DInclude *pInclude*/,
-      prmEntryPoint.c_str()/*LPCSTR pEntrypoint*/,
-      0/*LPCSTR pTarget*/,
-      NULL/*UINT Flags1*/,
-      NULL/*UINT Flags2*/,
-      &pErrorBlob/*ID3DBlob ppCode*/,
-      NULL/*ID3DBlob ppErrorMsgs*/);
+      NULL,
+      NULL,
+      prmEntryPoint.c_str(),
+      prmShaderModel.c_str(),
+      dwShaderFlags,
+      0,
+      &m_pBlob,
+      &pErrorBlob);
     if (FAILED(hr))
     {
       if (pErrorBlob != NULL)
         OutputDebugStringA((char*)pErrorBlob->GetBufferPointer());
       if (pErrorBlob) pErrorBlob->Release();
-      return hr;
+      return false;
     }
     if (pErrorBlob) pErrorBlob->Release();
 
@@ -73,8 +72,10 @@ namespace neEngineSDK
     if (FAILED(hr))
     {
       m_pBlob->Release();
-      return hr;
+      return false;
     }
+
+    return true;
   }
 
   void CPixelShader::destroy()
@@ -96,8 +97,10 @@ namespace neEngineSDK
     return reinterpret_cast<void**>(&m_pPixelShader);
   }
 
-  void CPixelShader::Set(CGraphicsDeviceContext* pDeviceContext)
+  void CPixelShader::Set()
   {
+    ID3D11DeviceContext* pD3DDeviceContext = reinterpret_cast<ID3D11DeviceContext*>(g_GraphicsAPI().m_DeviceContext.getObject());
+    pD3DDeviceContext->PSSetShader(m_pPixelShader, NULL, 0);
   }
 
-  }
+}

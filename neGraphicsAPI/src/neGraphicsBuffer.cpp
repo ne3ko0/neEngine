@@ -77,7 +77,7 @@ namespace neEngineSDK
   }
 
   template<typename T>
-  void CIndexBuffer<T>::CreateHardwareBuffer(int usageFags)
+  void CIndexBuffer<T>::CreateHardwareBuffer(int usageFlags)
   {
     if (!m_indexArray.size()) {
       return;
@@ -86,11 +86,11 @@ namespace neEngineSDK
     memset(&indexBufferDesc, 0; sizeof(D3D11_BUFFER_DESC));
 
 
-    if (BUFFER_USAGE_FLAGS::kDEFAULT & usageFags) {
+    if (BUFFER_USAGE_FLAGS::kDEFAULT & usageFlags) {
       indexBufferDesc.Usage |= D3D11_USAGE_DEFAULT;
     }
 
-    if (BUFFER_USAGE_FLAGS::KDYNAMIC & usageFags) {
+    if (BUFFER_USAGE_FLAGS::KDYNAMIC & usageFlags) {
       indexBufferDesc |= D3D11_USAGE_DEFAULT;
     }
 

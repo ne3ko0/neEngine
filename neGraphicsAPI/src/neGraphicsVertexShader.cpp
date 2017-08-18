@@ -20,7 +20,7 @@ namespace neEngineSDK
 
   }
 
-  int CVertexShader::create(String prmFileName, String prmEntryPoint, String prmShaderModel)
+  bool CVertexShader::create(const String& prmFileName, const String& prmEntryPoint, const String& prmShaderModel)
   {
     /************************************************************************/
     //Carga el código del archivo especificado
@@ -45,23 +45,23 @@ namespace neEngineSDK
 #endif
 
     ID3DBlob* pErrorBlob;
-    hr = D3DCompile(pFileData.c_str() /*LPCVOID pSrcData*/,
-                    sizeof(pFileData.c_str())/*SIZE_T SrcDataSize*/,
+    hr = D3DCompile(pFileData.c_str(),
+                    pFileData.size(),
                     prmFileName.c_str(),
-                    NULL/*D3D_SHADER_MACRO *pDefines*/, 
-                    NULL /*ID3DInclude *pInclude*/,
-                    prmEntryPoint.c_str()/*LPCSTR pEntrypoint*/, 
-                    prmShaderModel.c_str()/*LPCSTR pTarget*/,
-                    NULL/*UINT Flags1*/,
-                    NULL/*UINT Flags2*/, 
-                    &m_pBlob/*ID3DBlob ppCode*/, 
-                    &pErrorBlob/*ID3DBlob ppErrorMsgs*/);
+                    NULL, 
+                    NULL,
+                    prmEntryPoint.c_str(), 
+                    prmShaderModel.c_str(),
+                    dwShaderFlags,
+                    0, 
+                    &m_pBlob, 
+                    &pErrorBlob);
     if (FAILED(hr))
     {
       if (pErrorBlob != NULL)
         OutputDebugStringA((char*)pErrorBlob->GetBufferPointer());
       if (pErrorBlob) pErrorBlob->Release();
-      return hr;
+      return false;
     }
     if (pErrorBlob) pErrorBlob->Release();
 
@@ -73,8 +73,10 @@ namespace neEngineSDK
     if (FAILED(hr))
     {
       m_pBlob->Release();
-      return hr;
+      return false;
     }
+
+    return true;
   }
 
   void CVertexShader::destroy()
@@ -96,8 +98,10 @@ namespace neEngineSDK
     return reinterpret_cast<void**>(&m_pVertexShader);
   }
 
-  void CVertexShader::Set(CGraphicsDeviceContext* pDeviceContext)
+  void CVertexShader::Set()
   {
+    ID3D11DeviceContext* pD3DDeviceContext = reinterpret_cast<ID3D11DeviceContext*>(g_GraphicsAPI().m_DeviceContext.getObject());
+    pD3DDeviceContext->VSSetShader(m_pVertexShader, NULL, 0);
   }
 
 

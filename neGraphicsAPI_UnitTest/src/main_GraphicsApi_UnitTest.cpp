@@ -9,8 +9,9 @@
 #include <neMathVector4.h>
 #include <neGraphicsAPI.h>
 #include <neGraphicsBuffer.h>
-#include <neModule.h>
+
 #include <neGraphicsVertexShader.h>
+#include <neGraphicsPixelShader.h>
 
 using namespace neEngineSDK;
 
@@ -34,8 +35,8 @@ D3D_FEATURE_LEVEL       g_featureLevel = D3D_FEATURE_LEVEL_11_0;
 CVertexBuffer<NEVERTEX> m_VertexBuffer;
 
 //CVertexShader         m_VertexShader;
-//ID3D11VertexShader*   g_pVertexShader = NULL;
-ID3D11PixelShader*      g_pPixelShader = NULL;
+CVertexShader           g_pVertexShader;
+CPixelShader            g_pPixelShader;
 ID3D11InputLayout*      g_pVertexLayout = NULL;
 ID3D11Buffer*           g_pVertexBuffer = NULL;
 
@@ -233,7 +234,7 @@ HRESULT InitDevice()
   if (FAILED(hr))
     return hr;
 
-  ID3D11RenderTargetView** pRefRenderTargetView = reinterpret_cast<ID3D11RenderTargetView**>(g_GraphicsAPI().m_pRenderTargetView.getReference());
+  ID3D11RenderTargetView** pRefRenderTargetView = reinterpret_cast<ID3D11RenderTargetView**>(g_GraphicsAPI().m_pBBUfferRTV.getReference());
 
   hr = pDevice->CreateRenderTargetView(pBackBuffer, NULL, pRefRenderTargetView);
   pBackBuffer->Release();
@@ -253,16 +254,11 @@ HRESULT InitDevice()
   vp.TopLeftY = 0;
   pDeviceContext->RSSetViewports(1, &vp);
 
-  // Compile the vertex shader
-  ID3D11VertexShader** pRefVertexShader = reinterpret_cast<ID3D11VertexShader**>(g_GraphicsAPI().m_VertexShader.getReference());
-
-  ID3DBlob* pVSBlob = NULL;
-  hr = g_GraphicsAPI().m_VertexShader.create("resource/shader.hlsl", "VS", "vs_4_0");
-  if (FAILED(hr))
+  if(!g_pVertexShader.create("resource//shader.hlsl", "VS", "vs_5_0"))
   {
     MessageBox(NULL,
       "The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", "Error", MB_OK);
-    return hr;
+      return E_FAIL;
   }
 
   // Define the input layout
@@ -273,9 +269,8 @@ HRESULT InitDevice()
   UINT numElements = ARRAYSIZE(layout);
   
   // Create the input layout
-  hr = pDevice->CreateInputLayout(layout, numElements, pVSBlob->GetBufferPointer(),
-    pVSBlob->GetBufferSize(), &g_pVertexLayout);
-  pVSBlob->Release();
+  hr = pDevice->CreateInputLayout(layout, numElements, g_pVertexShader.getBlob()->GetBufferPointer(),
+    g_pVertexShader.getBlob()->GetBufferSize(), &g_pVertexLayout);
   if (FAILED(hr))
     return hr;
 
@@ -283,36 +278,23 @@ HRESULT InitDevice()
   pDeviceContext->IASetInputLayout(g_pVertexLayout);
 
   // Compile the pixel shader
-  ID3DBlob* pPSBlob = NULL;
-  hr = CompileShaderFromFile("resource/shader.hlsl", "PS", "ps_4_0", &pPSBlob);
-  if (FAILED(hr))
+  if (!g_pPixelShader.create("resource/shader.hlsl", "PS", "ps_5_0"))
   {
     MessageBox(NULL,
       "The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", "Error", MB_OK);
-    return hr;
+    return E_FAIL;
   }
 
-  // Create the pixel shader
-  hr = pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), NULL, &g_pPixelShader);
-  pPSBlob->Release();
-  if (FAILED(hr))
-    return hr;
-
   // Create vertex buffer
-  NEVERTEX VerToRender[3]
-  {
-    CVector4(0.0f, 0.5f, 0.5f, 0.f),
-    CVector4(0.5f, -0.5f,   0.5f, 0.f),
-    CVector4(-0.5f, -0.5f,  0.5f, 0.f)
-  };
-
-  m_VertexBuffer.Add(VerToRender, 3);
+  m_VertexBuffer.Add(NEVERTEX{ CVector4(0.0f, 0.5f, 0.5f, 0.f) });
+  m_VertexBuffer.Add(NEVERTEX{ CVector4(0.5f, -0.5f,   0.5f, 0.f) });
+  m_VertexBuffer.Add(NEVERTEX{ CVector4(-0.5f, -0.5f,  0.5f, 0.f) });
   m_VertexBuffer.CreateHardwareBuffer();
   m_VertexBuffer.SetHardwareBuffer();
 
   // Set primitive topology
   pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
+  pDeviceContext->Release();
   return S_OK;
 }
 
@@ -322,10 +304,8 @@ HRESULT InitDevice()
 //--------------------------------------------------------------------------------------
 void CleanupDevice()
 {
-  if (g_pVertexBuffer) g_pVertexBuffer->Release();
   if (g_pVertexLayout) g_pVertexLayout->Release();
   //if (m_VertexShader) m_VertexShader->destroy();
-  if (g_pPixelShader) g_pPixelShader->Release();
 }
 
 
@@ -364,16 +344,14 @@ void Render()
   // Clear the back buffer 
   float ClearColor[4] = { 2.0f, 0.125f, 0.3f, 1.0f }; // red,green,blue,alpha
   ID3D11DeviceContext* pDeviceContext = reinterpret_cast<ID3D11DeviceContext*>(g_GraphicsAPI().m_DeviceContext.getObject());
-  ID3D11RenderTargetView* pRenderTargetView = reinterpret_cast<ID3D11RenderTargetView*>(g_GraphicsAPI().m_pRenderTargetView.getObject());
+  ID3D11RenderTargetView* pRenderTargetView = reinterpret_cast<ID3D11RenderTargetView*>(g_GraphicsAPI().m_pBBUfferRTV.getObject());
   IDXGISwapChain* pSwapChain = reinterpret_cast<IDXGISwapChain*>(g_GraphicsAPI().m_SwapChain.getObject());
-  ID3D11VertexShader* pVertexShader = reinterpret_cast<ID3D11VertexShader*>(g_GraphicsAPI().m_VertexShader.getObject());
-  
 
   pDeviceContext->ClearRenderTargetView(pRenderTargetView, ClearColor);
   
   // Render a triangle
-  pDeviceContext->VSSetShader(pVertexShader, NULL, 0);
-  pDeviceContext->PSSetShader(g_pPixelShader, NULL, 0);
+  g_pVertexShader.Set();
+  g_pPixelShader.Set();
   pDeviceContext->Draw(3, 0);
 
   // Present the information rendered to the back buffer to the front buffer (the screen)

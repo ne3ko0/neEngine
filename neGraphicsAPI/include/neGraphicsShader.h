@@ -17,6 +17,8 @@ namespace neEngineSDK
     CShaderBase();
     virtual ~CShaderBase();
 
+    ID3DBlob* getBlob() { return m_pBlob; }
+
   public:
     static const String SM_VS;
     static const String SM_PS;

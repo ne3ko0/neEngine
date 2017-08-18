@@ -15,9 +15,9 @@ namespace neEngineSDK
   public:
     ID3D11VertexShader* m_pVertexShader;
 
-    int create(String prmFileName, String prmEntryPoint, String prmShaderModel);
+    bool create(const String& prmFileName, const String& prmEntryPoint, const String& prmShaderModel);
     void destroy();
-    void Set(CGraphicsDeviceContext* pDeviceContext);
+    void Set();
     void* getObject();
     void** getReference();
   };

@@ -149,7 +149,7 @@ namespace neEngineSDK
   }
 
   template<typename T>
-  void CVertexBuffer<T>::CreateHardwareBuffer(int usageFags)
+  void CVertexBuffer<T>::CreateHardwareBuffer(int usageFlags)
   {
     if (!m_vertexArray.size()) {
       return;
@@ -158,11 +158,11 @@ namespace neEngineSDK
     memset(&vertexBufferDesc, 0, sizeof(D3D11_BUFFER_DESC));
 
 
-    if (BUFFER_USAGE_FLAGS::kDEFAULT & usageFags) {
+    if (BUFFER_USAGE_FLAGS::kDEFAULT & usageFlags) {
       vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
     }
 
-    if (BUFFER_USAGE_FLAGS::KDYNAMIC & usageFags) {
+    if (BUFFER_USAGE_FLAGS::KDYNAMIC & usageFlags) {
       vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
     }
 

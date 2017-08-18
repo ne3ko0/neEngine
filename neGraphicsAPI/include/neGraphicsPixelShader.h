@@ -8,16 +8,16 @@ namespace neEngineSDK
 
   class NE_GRAPHICS_EXPORT CPixelShader : CShaderBase
   {
-
+  public:
     CPixelShader();
     ~CPixelShader();
 
   public:
     ID3D11PixelShader* m_pPixelShader;
 
-    int create(String prmFileName, String prmEntryPoint, String prmShaderModel);
+    bool create(const String& prmFileName, const String& prmEntryPoint, const String& prmShaderModel);
     void destroy();
-    void Set(CGraphicsDeviceContext* pDeviceContext);
+    void Set();
     void* getObject();
     void** getReference();
   };
